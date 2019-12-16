@@ -32,9 +32,15 @@ int main()
         xdo_get_window_name(my_xdo,list[i],&name,&size,&type);
         printf("%d: %s\n",i, name);
     }
-    //for( int i=0;i<no_windows;i++ ){
-    //    xdo_type(p_xdo,windows[i],"Hello World",0);
-    //}
-    ////xdo_type(p_xdo,CURRENTWINDOW,"Hello World",0); // This does work.
+
+    /* Send keypresses to first gedit in list */
+    for(int i=0; i<5; i++) {
+        xdo_activate_window(my_xdo, list[0]);
+        xdo_enter_text_window(my_xdo,CURRENTWINDOW,"HELLO",1000);
+        xdo_enter_text_window(my_xdo,CURRENTWINDOW,"WORLD",1000);
+        usleep(10e5);
+        xdo_send_keysequence_window(my_xdo,CURRENTWINDOW,"ctrl+a",1000);
+        xdo_send_keysequence_window(my_xdo,CURRENTWINDOW,"Delete",1000);
+    }
     return 0;
 }
